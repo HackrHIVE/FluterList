@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'model.dart';
 import 'detailedPAGE.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -11,31 +12,84 @@ class MyApp extends StatelessWidget {
       home: homepage(),
     );
   }
+
 }
 
-class homepage extends StatelessWidget {
+
+class homepage extends StatefulWidget {
+
+
+//  @override
+//  Widget build(BuildContext context) {
+//
+//    objLister(Model obj)=>InkWell(
+//      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailed(obj)));},
+//      child: SampleObj(obj.name,obj.revenue,obj.imgURL),);
+//
+//    return Scaffold(
+//
+//      appBar: AppBar(
+//        title: Center(child:Text('Top 10 Companies',style: TextStyle(color: Colors.indigo),)),
+//        backgroundColor: Colors.greenAccent,
+//      ),
+//      body: SingleChildScrollView(
+//        physics: BouncingScrollPhysics(),
+//        child: FutureBuilder(builder: )
+//      ),
+//    );
+//  }
+
+  @override
+  _firebaseState createState() =>_firebaseState();
+
+}
+
+class _firebaseState extends State<homepage>{
+
+  Future parseData() async{
+    var collectionRef =Firestore.instance;
+    QuerySnapshot snap =await collectionRef.collection('companies').getDocuments();
+
+    return snap.documents;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      parseData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    objLister(Model obj)=>InkWell(
-      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailed(obj)));},
-      child: SampleObj(obj.name,obj.revenue,obj.imgURL),);
-
+    // TODO: implement build
     return Scaffold(
-
       appBar: AppBar(
         title: Center(child:Text('Top 10 Companies',style: TextStyle(color: Colors.indigo),)),
         backgroundColor: Colors.greenAccent,
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: listCompanies.map((obj)=>objLister(obj)).toList(),
-        ),
+      body: FutureBuilder(
+        future: parseData(),
+          builder: (_,snapshot){
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return Center(
+              child: Text('Loading.....'),
+            );
+          }
+          return ListView.builder(
+            itemCount: snapshot.data.length,
+            itemBuilder: (_,index){
+              return SampleObj(snapshot.data[index].data['name'], snapshot.data[index].data['revenue'], snapshot.data[index].data['img']);
+            },
+          );
+          },
       ),
     );
   }
 }
+
 
 class SampleObj extends StatelessWidget{
 

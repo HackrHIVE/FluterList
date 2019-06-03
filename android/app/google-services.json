@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "178264584865",
+    "firebase_url": "https://top10-343a6.firebaseio.com",
+    "project_id": "top10-343a6",
+    "storage_bucket": "top10-343a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178264584865:android:716d597ae02187e3",
+        "android_client_info": {
+          "package_name": "rawal.chirag.flutter_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178264584865-27g3smagcq333u4minijdsclat8hglfu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA02u130YXibOMrtRXJinOe1G9DcEawz5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178264584865-27g3smagcq333u4minijdsclat8hglfu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
